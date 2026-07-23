@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peaceful World | Online Quran Academy</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#003b73;--blue2:#0066cc;--orange:#ff8c00;--green:#07845b;--bg:#f4f8fd;--card:#fff;--text:#222}
+body{font-family:Arial,Segoe UI,sans-serif;background:var(--bg);color:var(--text);transition:.3s}
+body.dark{--bg:#111827;--card:#1f2937;--text:#f5f5f5}
+body.large{font-size:125%}
+header{position:sticky;top:0;z-index:1000;background:linear-gradient(135deg,var(--blue),var(--blue2));color:white;padding:15px 5%;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.logo{font-size:25px;font-weight:bold}nav{display:flex;gap:8px;flex-wrap:wrap;align-items:center}nav a{color:white;text-decoration:none;font-weight:bold;cursor:pointer}
+button{border:0;border-radius:25px;padding:11px 17px;font-weight:bold;cursor:pointer}.orange{background:var(--orange);color:#fff}.blue{background:var(--blue);color:#fff}.green{background:var(--green);color:#fff}.gray{background:#555;color:#fff}.red{background:#c62828;color:#fff}
+.page{display:none;min-height:75vh}.page.active{display:block}
+.hero{min-height:86vh;display:flex;justify-content:center;align-items:center;text-align:center;color:#fff;padding:25px;background:linear-gradient(#002852c9,#002852c9),url("https://images.unsplash.com/photo-1609599006353-e629aaabfeae") center/cover}
+.hero h1{font-size:58px}.hero span{color:#ffd166}.hero p{font-size:22px;margin:20px}
+section,.container{padding:55px 7%;max-width:1300px;margin:auto}.title{text-align:center;color:var(--blue);font-size:38px;margin-bottom:30px}
+body.dark .title{color:#70b8ff}.cards{display:flex;justify-content:center;flex-wrap:wrap;gap:22px}.card{width:280px;background:var(--card);color:var(--text);padding:28px;border-radius:20px;border-top:5px solid var(--orange);box-shadow:0 8px 25px #ccd5df;cursor:pointer;transition:.3s}.card:hover{transform:translateY(-8px)}.card h3{color:var(--blue);margin-bottom:12px}
+.panel{background:var(--card);color:var(--text);padding:25px;border-radius:18px;box-shadow:0 8px 25px #ccd5df;margin-bottom:20px}
+.portal-header{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;padding:25px;border-radius:18px;margin-bottom:20px}.portal-nav{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.portal-nav button{background:#e7f0fa;color:var(--blue)}body.dark .portal-nav button{background:#374151;color:#fff}
+input,select,textarea{width:100%;padding:13px;margin:7px 0;border:1px solid #aaa;border-radius:10px;font-size:16px}
+.lesson{background:#edf6fc;padding:20px;border-radius:15px;margin:15px 0}body.dark .lesson{background:#374151}
+.arabic{direction:rtl;text-align:right;font-size:30px;line-height:2}.urdu{direction:rtl;text-align:right;font-size:20px;line-height:2}
+.quran{direction:rtl;text-align:right;font-size:31px;line-height:2.5;background:#fffbea;padding:22px;border-radius:15px}body.dark .quran{background:#374151}.quran span{display:block;margin-bottom:10px}
+.surah-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;max-height:430px;overflow:auto;margin-top:15px}.surah{padding:13px;background:#edf5fc;border-radius:10px;cursor:pointer}body.dark .surah{background:#374151}.surah:hover{background:var(--blue);color:#fff}
+.audio-box{margin-top:15px;padding:15px;background:#e5f0f7;border-radius:15px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}body.dark .audio-box{background:#374151}.audio-box select{width:auto;margin:0}.voice-status{width:100%;font-weight:bold;min-height:22px}
+.progress{height:12px;background:#ddd;border-radius:20px;overflow:hidden}.bar{height:100%;width:0;background:var(--green)}
+.ai-button{position:fixed;right:20px;bottom:20px;width:65px;height:65px;border-radius:50%;font-size:28px;background:var(--orange);color:white;z-index:3000}
+.ai{display:none;position:fixed;right:20px;bottom:95px;width:440px;max-width:92%;background:var(--card);color:var(--text);z-index:2999;border-radius:18px;overflow:hidden;box-shadow:0 10px 40px #444}.ai-head{background:var(--blue);color:#fff;padding:15px;display:flex;justify-content:space-between}.ai-head button{background:none;color:#fff;padding:0;font-size:20px}.chat{height:330px;overflow:auto;padding:12px;background:#edf5fc}body.dark .chat{background:#374151}.msg{padding:10px;margin:8px 0;border-radius:10px;line-height:1.7}.user{background:#dcecff}.bot{background:#e3f7ec}.ai-input{display:flex;gap:5px;padding:8px}.ai-input input{margin:0}
+footer{background:var(--blue);color:#fff;text-align:center;padding:25px}
+table{width:100%;border-collapse:collapse;margin-top:15px}th,td{padding:10px;border:1px solid #aaa;text-align:left}th{background:var(--blue);color:#fff}
+.stats{display:flex;gap:15px;flex-wrap:wrap}.stat{flex:1;min-width:160px;background:var(--card);padding:20px;text-align:center;border-radius:15px}.stat h2{font-size:30px;color:var(--blue)}
+@media(max-width:700px){header{flex-direction:column}.hero h1{font-size:38px}.ai{right:4%;width:92%}}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="logo">☪ Peaceful World</div>
+<nav>
+<a onclick="page('home')">Home</a>
+<a onclick="page('courses')">Courses</a>
+<a onclick="page('portals')">Student Portals</a>
+<button class="orange" onclick="page('admission')">Admission</button>
+<button class="orange" onclick="page('adminLogin')">Admin</button>
+<button class="orange" onclick="dark()">🌙</button>
+</nav>
+</header>
+
+<div id="home" class="page active">
+<div class="hero">
+<div>
+<h1>Welcome To <span>Peaceful World</span></h1>
+<p>Online Quran Academy With Professional Teachers</p>
+<button class="orange" onclick="page('portals')">Open Student Portal</button>
+<button class="blue" onclick="page('admission')">Take Admission</button>
+</div>
+</div>
+</div>
+
+<div id="courses" class="page">
+<section>
+<h2 class="title">Our Courses</h2>
+<div class="cards">
+<div class="card" onclick="course('Noorani Qaida')"><h3>📖 Noorani Qaida</h3><p>Learn Quran reading step by step.</p></div>
+<div class="card" onclick="course('Nazra Quran')"><h3>🕌 Nazra Quran</h3><p>Read the Holy Quran correctly.</p></div>
+<div class="card" onclick="course('Tajweed')"><h3>✨ Tajweed</h3><p>Learn correct pronunciation.</p></div>
+<div class="card" onclick="course('Hifz Quran')"><h3>🌙 Hifz Quran</h3><p>Memorization program.</p></div>
+<div class="card" onclick="course('Complete Quran')"><h3>📚 Complete Quran</h3><p>Read all 114 Surahs.</p></div>
+</div>
+</section>
+</div>
+
+<div id="portals" class="page">
+<div class="container">
+<h2 class="title">Student Portals</h2>
+<div id="portalCards" class="cards">
+<div class="card" onclick="openPortal('boys')"><h3>👦 Kids Boys</h3><p>Qaida, Duas, Akhlaq and Islamic learning.</p></div>
+<div class="card" onclick="openPortal('girls')"><h3>👧 Kids Girls</h3><p>Qaida, Duas, Akhlaq, Purdah and Haya.</p></div>
+<div class="card" onclick="openPortal('male')"><h3>👨 Adult Male</h3><p>Complete Quran and Tajweed.</p></div>
+<div class="card" onclick="openPortal('female')"><h3>👩 Adult Female</h3><p>Complete Quran, Tajweed and Purdah.</p></div>
+<div class="card" onclick="openPortal('senior')"><h3>👴 Senior Citizens</h3><p>Easy learning and large text.</p></div>
+</div>
+<div id="portalBox" style="display:none">
+<div id="portalHead" class="portal-header"></div>
+<button class="blue" onclick="backPortals()">← Back</button>
+<div id="portalNav" class="portal-nav"></div>
+<div id="portalContent"></div>
+</div>
+</div>
+</div>
+
+<div id="admission" class="page">
+<div class="container">
+<h2 class="title">Student Admission</h2>
+<div class="panel">
+<input id="name" placeholder="Full Name">
+<input id="father" placeholder="Father Name">
+<input id="age" type="number" placeholder="Age">
+<input id="email" type="email" placeholder="Email">
+<input id="phone" placeholder="Phone">
+<select id="country">
+<option value="">Select Country</option>
+<option>Pakistan</option><option>India</option><option>Bangladesh</option><option>Saudi Arabia</option><option>United Arab Emirates</option><option>Qatar</option><option>Kuwait</option><option>Oman</option><option>Bahrain</option><option>United Kingdom</option><option>United States</option><option>Canada</option><option>Australia</option><option>Malaysia</option><option>Indonesia</option><option>Turkey</option><option>Germany</option><option>France</option><option>Other</option>
+</select>
+<input id="otherCountry" placeholder="Enter Country" style="display:none">
+<select id="courseSelect"><option>Noorani Qaida</option><option>Nazra Quran</option><option>Tajweed</option><option>Hifz Quran</option><option>Complete Quran</option></select>
+<select id="gender"><option value="">Select Gender</option><option>Male</option><option>Female</option></select>
+<textarea id="message" rows="4" placeholder="Additional Message"></textarea>
+<button class="orange" onclick="submitAdmission()">Submit Admission</button>
+<div id="admissionStatus"></div>
+</div>
+</div>
+</div>
+
+<div id="adminLogin" class="page">
+<div class="container">
+<h2 class="title">Admin Login</h2>
+<div class="panel">
+<input id="adminUser" placeholder="Username">
+<input id="adminPass" type="password" placeholder="Password">
+<button class="blue" onclick="login()">Login</button>
+<div id="loginStatus"></div>
+<p style="margin-top:15px">Demo: <b>admin</b> / <b>admin123</b></p>
+</div>
+</div>
+</div>
+
+<div id="admin" class="page">
+<div class="container">
+<div class="portal-header"><h1>👨‍💼 Admin Dashboard</h1><button class="orange" onclick="logout()">Logout</button></div>
+<div class="stats">
+<div class="stat"><h2 id="total">0</h2><p>Admissions</p></div>
+<div class="stat"><h2>5</h2><p>Portals</p></div>
+<div class="stat"><h2>114</h2><p>Surahs</p></div>
+</div>
+<div class="panel">
+<h2>Admissions</h2>
+<input id="search" placeholder="Search..." oninput="render()">
+<button class="green" onclick="exportCSV()">Export CSV</button>
+<button class="red" onclick="clearAll()">Clear All</button>
+<div id="table"></div>
+</div>
+</div>
+</div>
+
+<button class="ai-button" onclick="toggleAI()">🤖</button>
+<div id="ai" class="ai">
+<div class="ai-head"><b>🤖 Peaceful World AI</b><button onclick="toggleAI()">✕</button></div>
+<div id="chat" class="chat">
+<div class="msg bot"><b>AI:</b><br>السلام علیکم! آپ Urdu، English، Roman Urdu یا Arabic میں سوال پوچھ سکتے ہیں۔</div>
+</div>
+<div class="ai-input"><input id="question" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')ask()"><button class="orange" onclick="ask()">Send</button></div>
+</div>
+
+<footer>Peaceful World Online Quran Academy<br>Email: shuraimsbkhang@gmail.com</footer>
+
+<script>
+/* ================= BASIC APP ================= */
+function page(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo({top:0,behavior:"smooth"})}
+function dark(){document.body.classList.toggle("dark");localStorage.setItem("dark",document.body.classList.contains("dark"))}
+if(localStorage.getItem("dark")==="true")document.body.classList.add("dark")
+function course(c){page("admission");document.getElementById("courseSelect").value=c}
+document.getElementById("country").onchange=function(){document.getElementById("otherCountry").style.display=this.value==="Other"?"block":"none"}
+
+/* ================= PORTALS ================= */
+let portalType="";
+function openPortal(type){
+portalType=type;document.getElementById("portalCards").style.display="none";document.getElementById("portalBox").style.display="block";
+let data={
+boys:["👦 Kids Boys Portal","Friendly Islamic learning for boys"],
+girls:["👧 Kids Girls Portal","Islamic learning with Purdah and Haya"],
+male:["👨 Adult Male Portal","Complete Quran and Tajweed"],
+female:["👩 Adult Female Portal","Quran, Tajweed and Purdah"],
+senior:["👴 Senior Citizens Portal","Easy learning with large text"]
+};
+document.getElementById("portalHead").innerHTML="<h1>"+data[type][0]+"</h1><p>"+data[type][1]+"</p>";
+let buttons=[];
+if(type==="boys")buttons=[["📖 Noorani Qaida",showQaida],["🤲 Masnoon Duas",showDuas],["🌟 Akhlaq & Hadith",showHadith]];
+if(type==="girls")buttons=[["📖 Noorani Qaida",showQaida],["🤲 Masnoon Duas",showDuas],["🌟 Akhlaq & Hadith",showHadith],["🧕 Purdah & Haya",showPurdah]];
+if(type==="male")buttons=[["📖 Complete Quran",showQuran],["✨ Tajweed",showTajweed]];
+if(type==="female")buttons=[["📖 Complete Quran",showQuran],["✨ Tajweed",showTajweed],["🧕 Purdah & Haya",showPurdah]];
+if(type==="senior")buttons=[["🔤 Easy Qaida",showQaida],["📖 Complete Quran",showQuran],["🔠 Large Text",()=>document.body.classList.toggle("large")]];
+document.getElementById("portalNav").innerHTML="";
+buttons.forEach(b=>{let btn=document.createElement("button");btn.textContent=b[0];btn.onclick=b[1];document.getElementById("portalNav").appendChild(btn)})
+document.getElementById("portalContent").innerHTML="<div class='panel'><h2>Welcome</h2><p>Select a section above.</p></div>"
+}
+function backPortals(){document.getElementById("portalBox").style.display="none";document.getElementById("portalCards").style.display="flex"}
+
+/* ================= AUDIO ENGINE =================
+   This is the important part:
+   1. The text is placed in a real SpeechSynthesisUtterance.
+   2. Voices are loaded every time.
+   3. Buttons control the SAME speech session.
+   4. Urdu, English and Arabic are selectable.
+*/
+let currentUtterance=null,currentText="",currentLang="en",voices=[];
+
+function refreshVoices(){voices=window.speechSynthesis.getVoices()}
+refreshVoices();window.speechSynthesis.onvoiceschanged=refreshVoices;
+
+function getVoice(lang){
+refreshVoices();
+let wanted=lang==="ur"?["ur-PK","ur-IN","hi-IN"]:lang==="ar"?["ar-SA","ar-EG","ar-AE","ar"]:["en-US","en-GB","en"];
+for(let w of wanted){let v=voices.find(x=>x.lang.toLowerCase()===w.toLowerCase());if(v)return v}
+for(let w of wanted){let v=voices.find(x=>x.lang.toLowerCase().startsWith(w.substring(0,2)));if(v)return v}
+return null
+}
+
+function speak(text,lang,statusEl){
+if(!("speechSynthesis" in window)){alert("Your browser does not support text-to-speech. Please use Google Chrome or Microsoft Edge.");return}
+if(!text||!text.trim()){alert("There is no text to listen.");return}
+window.speechSynthesis.cancel();
+currentText=text;currentLang=lang;
+currentUtterance=new SpeechSynthesisUtterance(text);
+let v=getVoice(lang);
+if(v)currentUtterance.voice=v;
+currentUtterance.lang=lang==="ur"?"ur-PK":lang==="ar"?"ar-SA":"en-US";
+currentUtterance.rate=lang==="ar"?0.72:lang==="ur"?0.78:0.88;
+currentUtterance.pitch=1;
+currentUtterance.volume=1;
+currentUtterance.onstart=()=>{if(statusEl)statusEl.textContent="🔊 Speaking..."}
+currentUtterance.onend=()=>{if(statusEl)statusEl.textContent="✅ Finished"}
+currentUtterance.onerror=(e)=>{if(statusEl)statusEl.textContent="❌ Voice error: "+e.error}
+window.speechSynthesis.speak(currentUtterance);
+}
+
+function pause(){if(window.speechSynthesis.speaking)window.speechSynthesis.pause()}
+function resume(){if(window.speechSynthesis.paused)window.speechSynthesis.resume()}
+function stop(){window.speechSynthesis.cancel()}
+function replay(){if(currentText)speak(currentText,currentLang,null)}
+
+function audioPlayer(text,defaultLang="en"){
+let box=document.createElement("div");box.className="audio-box";
+let select=document.createElement("select");
+select.innerHTML='<option value="ur">اردو</option><option value="en">English</option><option value="ar">العربية</option>';
+select.value=defaultLang;
+let listen=document.createElement("button");listen.className="green";listen.textContent="▶ Listen";
+let pauseBtn=document.createElement("button");pauseBtn.className="orange";pauseBtn.textContent="⏸ Pause";
+let resumeBtn=document.createElement("button");resumeBtn.className="blue";resumeBtn.textContent="▶ Resume";
+let stopBtn=document.createElement("button");stopBtn.className="gray";stopBtn.textContent="⏹ Stop";
+let replayBtn=document.createElement("button");replayBtn.className="orange";replayBtn.textContent="🔁 Replay";
+let status=document.createElement("div");status.className="voice-status";
+listen.onclick=()=>speak(text,select.value,status);
+pauseBtn.onclick=()=>pause();
+resumeBtn.onclick=()=>resume();
+stopBtn.onclick=()=>{stop();status.textContent="⏹ Stopped"};
+replayBtn.onclick=()=>speak(text,select.value,status);
+box.append(select,listen,pauseBtn,resumeBtn,stopBtn,replayBtn,status);
+return box
+}
+
+/* ================= QAIDA ================= */
+const qaida=[
+["Lesson 1: Arabic Letters","ا ب ت ث ج ح خ د ذ ر ز س ش ص ض ط ظ ع غ ف ق ك ل م ن و ه ء ي"],
+["Lesson 2: Harakaat","بَ بِ بُ   تَ تِ تُ   جَ جِ جُ"],
+["Lesson 3: Tanween","بً بٍ بٌ   تً تٍ تٌ"],
+["Lesson 4: Madd","بَا بِي بُو"],
+["Lesson 5: Sukoon","اَبْ اَتْ اَجْ"],
+["Lesson 6: Tashdeed","اَبَّ اَتَّ اَجَّ"],
+["Lesson 7: Qalqalah","ق ط ب ج د"],
+["Lesson 8: Noon Saakin","اظہار، ادغام، اقلاب اور اخفاء"],
+["Lesson 9: Meem Saakin","اظہار شفوی، اخفاء شفوی اور ادغام شفوی"],
+["Lesson 10: Quran Reading","الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ"]
+];
+
+function showQaida(){
+let box=document.getElementById("portalContent");box.innerHTML="";
+let panel=document.createElement("div");panel.className="panel";
+panel.innerHTML="<h2>📖 Complete Noorani Qaida</h2><div class='progress'><div id='qaidaBar' class='bar'></div></div>";
+qaida.forEach((x,i)=>{
+let lesson=document.createElement("div");lesson.className="lesson";
+lesson.innerHTML="<h3>"+x[0]+"</h3><p class='arabic'>"+x[1]+"</p>";
+lesson.appendChild(audioPlayer(x[1],"ar"));
+let done=document.createElement("button");done.className="green";done.textContent="✓ Mark Complete";done.onclick=()=>completeQaida(i);
+lesson.appendChild(document.createElement("br"));lesson.appendChild(done);panel.appendChild(lesson)
+});
+box.appendChild(panel);updateQaida()
+}
+function completeQaida(i){let p=JSON.parse(localStorage.getItem("qaidaDone")||"[]");if(!p.includes(i))p.push(i);localStorage.setItem("qaidaDone",JSON.stringify(p));updateQaida()}
+function updateQaida(){let b=document.getElementById("qaidaBar");if(b){let p=JSON.parse(localStorage.getItem("qaidaDone")||"[]");b.style.width=(p.length/qaida.length*100)+"%"}}
+
+/* ================= DUAS ================= */
+const duas=[
+["Before Sleeping","بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا","اے اللہ! تیرے ہی نام کے ساتھ مرتا اور جیتا ہوں۔"],
+["After Waking","الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ","تمام تعریفیں اللہ کے لیے ہیں جس نے ہمیں موت کے بعد زندہ کیا۔"],
+["Before Eating","بِسْمِ اللَّهِ","اللہ کے نام سے۔"],
+["After Eating","الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ","تمام تعریفیں اللہ کے لیے ہیں جس نے مجھے یہ کھانا کھلایا۔"],
+["Leaving Home","بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ","اللہ کے نام سے، میں نے اللہ پر بھروسہ کیا۔"],
+["Knowledge","رَبِّ زِدْنِي عِلْمًا","اے میرے رب! میرے علم میں اضافہ فرما۔"]
+];
+function showDuas(){let box=document.getElementById("portalContent");box.innerHTML="<div class='panel'><h2>🤲 Masnoon Duas</h2></div>";let panel=box.firstChild;duas.forEach(x=>{let l=document.createElement("div");l.className="lesson";l.innerHTML="<h3>"+x[0]+"</h3><p class='arabic'>"+x[1]+"</p><p class='urdu'>"+x[2]+"</p>";l.appendChild(audioPlayer(x[1],"ar"));panel.appendChild(l)})}
+
+/* ================= HADITH ================= */
+const hadith=[
+["Truthfulness","سچائی نیکی کی طرف رہنمائی کرتی ہے اور نیکی جنت کی طرف لے جاتی ہے۔"],
+["Parents","اللہ تعالیٰ کی رضا والدین کی رضا میں ہے۔"],
+["Good Character","قیامت کے دن مومن کے میزان میں اچھے اخلاق سے زیادہ بھاری کوئی چیز نہیں۔"],
+["Mercy","جو لوگوں پر رحم نہیں کرتا، اس پر رحم نہیں کیا جاتا۔"],
+["Smile","اپنے مسلمان بھائی کے چہرے پر مسکرانا بھی صدقہ ہے۔"]
+];
+function showHadith(){let box=document.getElementById("portalContent");box.innerHTML="<div class='panel'><h2>🌟 Islamic Akhlaq & Hadith</h2></div>";let panel=box.firstChild;hadith.forEach(x=>{let l=document.createElement("div");l.className="lesson";l.innerHTML="<h3>"+x[0]+"</h3><p class='urdu'>"+x[1]+"</p>";l.appendChild(audioPlayer(x[1],"ur"));panel.appendChild(l)})}
+
+/* ================= PURDAH ================= */
+const purdah=[
+["Haya","حیا ایمان کا ایک حصہ ہے۔"],
+["Lowering the Gaze","قرآن مجید مومن مردوں اور مومن عورتوں کو اپنی نگاہیں نیچی رکھنے کی تعلیم دیتا ہے۔"],
+["Modesty","اسلامی تعلیمات لباس، گفتگو اور رویے میں حیا اور وقار کی تعلیم دیتی ہیں۔"],
+["Dignity","اسلام عورت کو عزت، تحفظ اور وقار کے ساتھ زندگی گزارنے کی تعلیم دیتا ہے۔"]
+];
+function showPurdah(){let box=document.getElementById("portalContent");box.innerHTML="<div class='panel'><h2>🧕 Purdah & Haya</h2></div>";let panel=box.firstChild;purdah.forEach(x=>{let l=document.createElement("div");l.className="lesson";l.innerHTML="<h3>"+x[0]+"</h3><p class='urdu'>"+x[1]+"</p>";l.appendChild(audioPlayer(x[1],"ur"));panel.appendChild(l)})}
+
+/* ================= TAJWEED ================= */
+function showTajweed(){let box=document.getElementById("portalContent");box.innerHTML="<div class='panel'><h2>✨ Tajweed</h2></div>";let panel=box.firstChild;let data=[["Makharij","Learn the correct articulation points of Arabic letters."],["Qalqalah","ق ط ب ج د"],["Ghunnah","غنہ بعض احکام میں ناک سے ادا ہونے والی آواز ہے۔"],["Ikhfa","نون ساکن اور تنوین کے بنیادی احکام میں اخفاء شامل ہے۔"]];data.forEach(x=>{let l=document.createElement("div");l.className="lesson";l.innerHTML="<h3>"+x[0]+"</h3><p class='urdu'>"+x[1]+"</p>";l.appendChild(audioPlayer(x[1],"ur"));panel.appendChild(l)})}
+
+/* ================= COMPLETE QURAN ================= */
+let surahs=[],quranText="";
+async function showQuran(){
+let box=document.getElementById("portalContent");box.innerHTML="<div class='panel'><h2>📖 Complete Quran</h2><input id='surahSearch' placeholder='Search Surah...' oninput='filterSurah()'><div id='surahList' class='surah-grid'>Loading 114 Surahs...</div><div id='quranText' class='quran'>Select a Surah to read.</div><div id='quranAudio'></div></div>";
+try{let r=await fetch("https://api.alquran.cloud/v1/surah");let d=await r.json();surahs=d.data;renderSurah()}catch(e){document.getElementById("surahList").innerHTML="Internet connection is required to load Quran."}
+}
+function renderSurah(){document.getElementById("surahList").innerHTML=surahs.map(s=>"<div class='surah' onclick='loadSurah("+s.number+")'>"+s.number+". "+s.englishName+"<br>"+s.name+"</div>").join("")}
+function filterSurah(){let q=document.getElementById("surahSearch").value.toLowerCase();document.querySelectorAll(".surah").forEach(x=>x.style.display=x.textContent.toLowerCase().includes(q)?"block":"none")}
+async function loadSurah(n){let t=document.getElementById("quranText");t.innerHTML="Loading...";let r=await fetch("https://api.alquran.cloud/v1/surah/"+n+"/quran-uthmani");let d=await r.json();let s=d.data;quranText=s.ayahs.map(a=>a.text).join(" ");t.innerHTML="<h2 style='text-align:center'>"+s.name+"</h2>"+s.ayahs.map(a=>"<span>﴿"+a.numberInSurah+"﴾ "+a.text+"</span>").join("");let audio=document.getElementById("quranAudio");audio.innerHTML="";audio.appendChild(audioPlayer(quranText,"ar"))}
+
+/* ================= AI ================= */
+function toggleAI(){let x=document.getElementById("ai");x.style.display=x.style.display==="block"?"none":"block"}
+function answer(q){
+q=q.toLowerCase();
+if(q.includes("salam")||q.includes("السلام")||q.includes("assalam"))return"وعلیکم السلام ورحمۃ اللہ وبرکاتہ 🌙 آپ courses، admission، Quran، Qaida، Duas، Hadith، Tajweed اور student portals کے بارے میں سوال پوچھ سکتے ہیں۔";
+if(q.includes("course")||q.includes("کورس"))return"ہماری Academy میں Noorani Qaida، Nazra Quran، Tajweed، Hifz Quran اور Complete Quran learning شامل ہیں۔";
+if(q.includes("admission")||q.includes("داخلہ"))return"Admission کے لیے Admission button پر click کریں، form مکمل کریں اور Submit Admission دبائیں۔";
+if(q.includes("qaida")||q.includes("قاعدہ")||q.includes("noorani"))return"Noorani Qaida میں Arabic letters، Harakaat، Tanween، Madd، Sukoon، Tashdeed، Qalqalah، Noon Saakin اور Meem Saakin کے lessons شامل ہیں۔";
+if(q.includes("dua")||q.includes("دعا"))return"Masnoon Duas میں سونے، جاگنے، کھانے، گھر سے نکلنے اور علم کی دعائیں شامل ہیں۔";
+if(q.includes("quran")||q.includes("قرآن"))return"Complete Quran section میں 114 Surahs موجود ہیں۔ آپ Surah select کر کے Arabic Quran پڑھ اور سن سکتے ہیں۔";
+if(q.includes("hadith")||q.includes("حدیث")||q.includes("اخلاق"))return"Islamic Akhlaq section میں سچائی، والدین کی عزت، رحم اور اچھے اخلاق کے بارے میں احادیث شامل ہیں۔";
+if(q.includes("purdah")||q.includes("پردہ")||q.includes("حیا"))return"Purdah & Haya section میں حیا، نگاہوں کی حفاظت، modesty اور اسلامی وقار کے بارے میں بنیادی تعلیمات شامل ہیں۔";
+if(q.includes("voice")||q.includes("listen")||q.includes("سناؤ")||q.includes("آواز"))return"ہر lesson کے نیچے Language select کریں اور ▶ Listen دبائیں۔ Pause، Resume، Stop اور Replay بھی available ہیں۔";
+return"میں آپ کی مدد کر سکتا ہوں۔ آپ courses، admission، Noorani Qaida، Quran، Duas، Hadith، Tajweed، Purdah یا Listen feature کے بارے میں سوال پوچھ سکتے ہیں۔"
+}
+function ask(){let input=document.getElementById("question"),q=input.value.trim();if(!q)return;let a=answer(q),chat=document.getElementById("chat");let u=document.createElement("div");u.className="msg user";u.innerHTML="<b>You:</b><br>"+safe(q);let b=document.createElement("div");b.className="msg bot";b.innerHTML="<b>AI:</b><br>"+a;b.appendChild(audioPlayer(a,"ur"));chat.append(u,b);input.value="";chat.scrollTop=chat.scrollHeight}
+function safe(x){let d=document.createElement("div");d.textContent=x;return d.innerHTML}
+
+/* ================= ADMISSION ================= */
+function submitAdmission(){
+let country=document.getElementById("country").value;if(country==="Other")country=document.getElementById("otherCountry").value;
+let s={name:document.getElementById("name").value,father:document.getElementById("father").value,age:document.getElementById("age").value,email:document.getElementById("email").value,phone:document.getElementById("phone").value,country,course:document.getElementById("courseSelect").value,gender:document.getElementById("gender").value,message:document.getElementById("message").value,date:new Date().toLocaleString()};
+if(!s.name||!s.email||!s.phone||!s.country){document.getElementById("admissionStatus").innerHTML="<p style='color:red'>Please fill Name, Email, Phone and Country.</p>";return}
+let a=JSON.parse(localStorage.getItem("admissions")||"[]");a.push(s);localStorage.setItem("admissions",JSON.stringify(a));document.getElementById("admissionStatus").innerHTML="<p style='color:green'>✅ Admission submitted successfully.</p>"
+}
+
+/* ================= ADMIN ================= */
+function login(){if(document.getElementById("adminUser").value==="admin"&&document.getElementById("adminPass").value==="admin123"){sessionStorage.setItem("admin","1");page("admin");render()}else document.getElementById("loginStatus").innerHTML="<p style='color:red'>Incorrect username or password.</p>"}
+function logout(){sessionStorage.removeItem("admin");page("adminLogin")}
+function render(){if(sessionStorage.getItem("admin")!=="1"){page("adminLogin");return}let a=JSON.parse(localStorage.getItem("admissions")||"[]"),q=(document.getElementById("search")?.value||"").toLowerCase();let f=a.filter(x=>Object.values(x).join(" ").toLowerCase().includes(q));document.getElementById("total").textContent=a.length;let h="<table><tr><th>Name</th><th>Email</th><th>Phone</th><th>Country</th><th>Course</th></tr>";f.forEach(x=>h+="<tr><td>"+safe(x.name)+"</td><td>"+safe(x.email)+"</td><td>"+safe(x.phone)+"</td><td>"+safe(x.country)+"</td><td>"+safe(x.course)+"</td></tr>");document.getElementById("table").innerHTML=h+"</table>"}
+function clearAll(){if(confirm("Delete all admissions?")){localStorage.removeItem("admissions");render()}}
+function exportCSV(){let a=JSON.parse(localStorage.getItem("admissions")||"[]");if(!a.length){alert("No admissions.");return}let h=Object.keys(a[0]),csv=[h.join(","),...a.map(x=>h.map(k=>'"'+String(x[k]||"").replace(/"/g,'""')+'"').join(","))].join("\n"),blob=new Blob([csv],{type:"text/csv"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download="admissions.csv";link.click();URL.revokeObjectURL(url)}
+</script>
+</body>
+</html>
